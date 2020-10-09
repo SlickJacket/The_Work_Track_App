@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_05_190640) do
+ActiveRecord::Schema.define(version: 2020_10_09_222258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_190640) do
     t.bigint "project_folder_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "starred"
+    t.boolean "trash"
     t.index ["project_folder_id"], name: "index_bug_books_on_project_folder_id"
   end
 
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_190640) do
     t.bigint "bug_book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "starred"
+    t.boolean "trash"
     t.index ["bug_book_id"], name: "index_bugs_on_bug_book_id"
   end
 
@@ -39,6 +43,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_190640) do
     t.bigint "project_folder_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "starred"
+    t.boolean "trash"
     t.index ["project_folder_id"], name: "index_note_books_on_project_folder_id"
   end
 
@@ -48,6 +54,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_190640) do
     t.bigint "note_book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "starred"
+    t.boolean "trash"
     t.index ["note_book_id"], name: "index_notes_on_note_book_id"
   end
 
@@ -56,6 +64,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_190640) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "starred"
+    t.boolean "trash"
     t.index ["user_id"], name: "index_project_folders_on_user_id"
   end
 
