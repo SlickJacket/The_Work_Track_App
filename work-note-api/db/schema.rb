@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_222258) do
+ActiveRecord::Schema.define(version: 2020_10_10_021711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_222258) do
     t.boolean "starred"
     t.boolean "trash"
     t.index ["bug_book_id"], name: "index_bugs_on_bug_book_id"
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "labelable_id"
+    t.string "labelable_type"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "note_books", force: :cascade do |t|

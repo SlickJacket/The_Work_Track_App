@@ -3,4 +3,5 @@ class User < ApplicationRecord
     validates :username, uniqueness: { case_sensitive: false }
 
     has_many :project_folders
+    has_many :labels
 end
