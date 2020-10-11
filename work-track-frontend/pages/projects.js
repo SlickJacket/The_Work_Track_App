@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
+import Router, { withRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import SidePanel from "../components/sidePanel";
 
 const useStyles = makeStyles((theme) => ({}));
 
-export default function Projects() {
+function Projects() {
   const classes = useStyles();
 
   return (
@@ -14,3 +15,5 @@ export default function Projects() {
     </Fragment>
   );
 }
+
+export default withRouter(Projects);
