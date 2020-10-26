@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   sidePanel: {
-    backgroundColor: "grey",
+    backgroundColor: theme.palette.secondary.main,
     width: "240px",
     position: "absolute",
     top: "0",
