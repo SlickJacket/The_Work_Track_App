@@ -11,12 +11,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: "30vw",
-    margin: "auto",
-    top: "20%",
-    position: "relative",
     backgroundColor: "white",
-    padding: "50px",
     borderRadius: "5px",
   },
   form: {
@@ -66,7 +61,7 @@ export default function SignupForm() {
 
   return (
     <Box className={classes.container}>
-      <Typography variant="h2">Sign Up</Typography>
+      <Typography variant="h3">Sign Up</Typography>
       <form
         className={classes.form}
         noValidate
