@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import Collapse from "@material-ui/core/Collapse";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
 import SearchBar from "./SearchBar";
 import LabelIcon from "@material-ui/icons/Label";
 import DeleteIcon from "@material-ui/icons/Delete";
+import FolderIcon from "@material-ui/icons/Folder";
+import StarIcon from "@material-ui/icons/Star";
+
+import { client } from "../../api/client";
+import NewProjectModal from "./NewProjectModal";
 
 const drawerWidth = 160;
 
@@ -46,29 +47,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "20px",
   },
-  newButton: {
-    color: "#f9f9f9",
-    width: "140px",
-    height: "25px",
-    fontSize: "11px",
-    borderRadius: "50px",
-    textTransform: "capitalize",
-    display: "flex",
-    justifyContent: "start",
-
-    "& span": {
-      position: "absolute",
-      left: "1px",
-    },
-  },
   icons: {
+    color: "#F9F9F9",
+  },
+  arrowIcons: {
     color: "#F9F9F9",
   },
   listFolders: {
     paddingLeft: "1px",
+
+    "& div": {
+      marginLeft: "5px",
+    },
   },
   listItems: {
     paddingLeft: "8px",
+    marginLeft: "18px",
 
     "& div": {
       marginLeft: "5px",
@@ -78,16 +72,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function sidePandel() {
   const classes = useStyles();
-  const [openShortcuts, setOpenShortCuts] = useState(false);
+  const [openShortCuts, setOpenShortCuts] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projects, setProjects] = useState();
 
   const shortCutsClick = () => {
-    setOpenShortCuts(!openShortcuts);
+    setOpenShortCuts(!openShortCuts);
   };
 
   const projectsClick = () => {
     setOpenProjects(!openProjects);
   };
+
+  useEffect(() => {
+    client("projects").then((data) => {
+      data.forEach((p) => {
+        if (p.user_id === parseInt(localStorage.id)) {
+          console.log(p);
+        }
+      });
+    });
+  }, []);
 
   return (
     <Drawer
@@ -101,34 +107,28 @@ export default function sidePandel() {
     >
       <div className={classes.searchNew}>
         <SearchBar />
-        <Button
-          color="primary"
-          variant="contained"
-          className={classes.newButton}
-        >
-          <AddIcon fontSize="small" />
-          New Project
-        </Button>
+        <NewProjectModal />
       </div>
       <Divider />
       <List>
         <ListItem
           button
-          key={"Short Cuts"}
+          key={"ShortCuts"}
           onClick={shortCutsClick}
           className={classes.listFolders}
         >
-          {openShortcuts ? (
-            <ArrowDropDownIcon className={classes.icons} />
+          {openShortCuts ? (
+            <ArrowDropDownIcon className={classes.arrowIcons} />
           ) : (
-            <ArrowRightIcon className={classes.icons} />
+            <ArrowRightIcon className={classes.arrowIcons} />
           )}
+          <StarIcon fontSize="small" className={classes.icons} />
           <ListItemText
-            primary={"Short Cuts"}
+            primary={"Shortcuts"}
             classes={{ primary: classes.listText }}
           />
         </ListItem>
-        <Collapse in={openShortcuts} timeout="auto" unmountOnExit>
+        <Collapse in={openShortCuts} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}>
               <ListItemText
@@ -140,6 +140,7 @@ export default function sidePandel() {
         </Collapse>
 
         {/* projects */}
+
         <ListItem
           button
           key={"Projects"}
@@ -147,10 +148,11 @@ export default function sidePandel() {
           className={classes.listFolders}
         >
           {openProjects ? (
-            <ArrowDropDownIcon className={classes.icons} />
+            <ArrowDropDownIcon className={classes.arrowIcons} />
           ) : (
-            <ArrowRightIcon className={classes.icons} />
+            <ArrowRightIcon className={classes.arrowIcons} />
           )}
+          <FolderIcon fontSize="small" className={classes.icons} />
           <ListItemText
             primary={"Projects"}
             classes={{ primary: classes.listText }}
@@ -166,9 +168,6 @@ export default function sidePandel() {
             </ListItem>
           </List>
         </Collapse>
-      </List>
-      <Divider />
-      <List>
         <ListItem button key={"Labels"} className={classes.listItems}>
           <LabelIcon fontSize="small" className={classes.icons} />
           <ListItemText
@@ -184,6 +183,7 @@ export default function sidePandel() {
           />
         </ListItem>
       </List>
+      <Divider />
     </Drawer>
   );
 }

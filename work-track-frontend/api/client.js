@@ -1,7 +1,7 @@
 const localStorageKey = "jwt";
 
 export function client(endpoint, { body, ...customConfig } = {}) {
-  const token = window.localStorage.getItem(localStorageKey);
+  const token = localStorage.jwt;
   const headers = { "content-type": "application/json" };
 
   if (token) {
