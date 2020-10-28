@@ -53,7 +53,7 @@ export default function SignupForm() {
         localStorage.id = data.user.id;
 
         Router.push({
-          pathname: "/projects",
+          pathname: "/project-folders/projects",
         });
       }
     });
