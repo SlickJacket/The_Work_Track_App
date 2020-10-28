@@ -13,6 +13,8 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import SearchBar from "./SearchBar";
+import LabelIcon from "@material-ui/icons/Label";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const drawerWidth = 160;
 
@@ -59,8 +61,18 @@ const useStyles = makeStyles((theme) => ({
       left: "1px",
     },
   },
-  arrowIcons: {
+  icons: {
     color: "#F9F9F9",
+  },
+  listFolders: {
+    paddingLeft: "1px",
+  },
+  listItems: {
+    paddingLeft: "8px",
+
+    "& div": {
+      marginLeft: "5px",
+    },
   },
 }));
 
@@ -100,11 +112,16 @@ export default function sidePandel() {
       </div>
       <Divider />
       <List>
-        <ListItem button key={"Short Cuts"} onClick={shortCutsClick}>
+        <ListItem
+          button
+          key={"Short Cuts"}
+          onClick={shortCutsClick}
+          className={classes.listFolders}
+        >
           {openShortcuts ? (
-            <ArrowDropDownIcon className={classes.arrowIcons} />
+            <ArrowDropDownIcon className={classes.icons} />
           ) : (
-            <ArrowRightIcon className={classes.arrowIcons} />
+            <ArrowRightIcon className={classes.icons} />
           )}
           <ListItemText
             primary={"Short Cuts"}
@@ -123,11 +140,16 @@ export default function sidePandel() {
         </Collapse>
 
         {/* projects */}
-        <ListItem button key={"Projects"} onClick={projectsClick}>
+        <ListItem
+          button
+          key={"Projects"}
+          onClick={projectsClick}
+          className={classes.listFolders}
+        >
           {openProjects ? (
-            <ArrowDropDownIcon className={classes.arrowIcons} />
+            <ArrowDropDownIcon className={classes.icons} />
           ) : (
-            <ArrowRightIcon className={classes.arrowIcons} />
+            <ArrowRightIcon className={classes.icons} />
           )}
           <ListItemText
             primary={"Projects"}
@@ -147,14 +169,20 @@ export default function sidePandel() {
       </List>
       <Divider />
       <List>
-        {["Labels", "Trash"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText
-              primary={text}
-              classes={{ primary: classes.listText }}
-            />
-          </ListItem>
-        ))}
+        <ListItem button key={"Labels"} className={classes.listItems}>
+          <LabelIcon fontSize="small" className={classes.icons} />
+          <ListItemText
+            primary={"Labels"}
+            classes={{ primary: classes.listText }}
+          />
+        </ListItem>
+        <ListItem button key={"Trash"} className={classes.listItems}>
+          <DeleteIcon fontSize="small" className={classes.icons} />
+          <ListItemText
+            primary={"Trash"}
+            classes={{ primary: classes.listText }}
+          />
+        </ListItem>
       </List>
     </Drawer>
   );
