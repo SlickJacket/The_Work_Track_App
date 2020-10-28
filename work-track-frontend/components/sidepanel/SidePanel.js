@@ -14,8 +14,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FolderIcon from "@material-ui/icons/Folder";
 import StarIcon from "@material-ui/icons/Star";
 
-import { client } from "../../api/client";
 import NewProjectModal from "./NewProjectModal";
+import ProjectListItems from "./ProjectListItems";
 
 const drawerWidth = 160;
 
@@ -85,16 +85,6 @@ export default function sidePandel() {
     setOpenProjects(!openProjects);
   };
 
-  useEffect(() => {
-    client("projects").then((data) => {
-      data.forEach((p) => {
-        if (p.user_id === parseInt(localStorage.id)) {
-          console.log(p);
-        }
-      });
-    });
-  }, []);
-
   return (
     <Drawer
       className={classes.drawer}
@@ -159,14 +149,7 @@ export default function sidePandel() {
           />
         </ListItem>
         <Collapse in={openProjects} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText
-                primary="Good Money"
-                classes={{ primary: classes.listText }}
-              />
-            </ListItem>
-          </List>
+          <ProjectListItems />
         </Collapse>
         <ListItem button key={"Labels"} className={classes.listItems}>
           <LabelIcon fontSize="small" className={classes.icons} />
