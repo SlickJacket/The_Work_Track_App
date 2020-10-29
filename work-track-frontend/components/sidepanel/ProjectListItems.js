@@ -12,6 +12,23 @@ import Fade from "@material-ui/core/Fade";
 import { client } from "../../api/client";
 
 const useStyles = makeStyles((theme) => ({
+  projectList: {
+    maxHeight: "200px",
+    overflowY: "scroll",
+
+    "&::-webkit-scrollbar": {
+      width: "0.3em",
+    },
+
+    "&::-webkit-scrollbar-track": {
+      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.3)",
+    },
+
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "darkgrey",
+      outline: "1px solid slategrey",
+    },
+  },
   nested: {
     display: "flex",
     flexDirection: "row",
