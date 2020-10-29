@@ -1,22 +1,62 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import FolderOpenIcon from "@material-ui/icons/FolderOpen";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Fade from "@material-ui/core/Fade";
 
 import { client } from "../../api/client";
 
 const useStyles = makeStyles((theme) => ({
+  nested: {
+    display: "flex",
+    flexDirection: "row",
+    height: "20px",
+  },
   listText: {
     color: "white",
-    fontSize: "10px",
+    fontSize: "9px",
+    marginLeft: "10px",
+    textTransform: "capitalize",
+  },
+  icons: {
+    color: "#F9F9F9",
+    width: 15,
+    height: 15,
+    marginLeft: "10px",
+  },
+  listItemMenu: {
+    "& div": {
+      boxShadow: "none",
+      marginLeft: "50px",
+      backgroundColor: "rgba(232, 232, 232, 0.4)",
+      borderRadius: "2px",
+    },
+  },
+  listItemMenuText: {
+    fontSize: "8px",
+    color: theme.palette.secondary.main,
   },
 }));
 
 export default function ProjectListItems() {
   const classes = useStyles();
   const [projects, setProjects] = useState([]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     client("projects").then((data) => {
@@ -25,15 +65,54 @@ export default function ProjectListItems() {
   }, []);
 
   return (
-    <List component="div" disablePadding id="projectsList">
+    <List component="div" disablePadding className={classes.projectList}>
       {projects.map((p) => {
         return (
-          <ListItem button className={classes.nested}>
+          <ListItem
+            button
+            className={classes.nested}
+            onContextMenu={handleClick}
+          >
+            <FolderOpenIcon fontSize="small" className={classes.icons} />
             <ListItemText
               key={p.title}
               primary={p.title}
               classes={{ primary: classes.listText }}
             />
+            <Menu
+              id="fade-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              className={classes.listItemMenu}
+            >
+              <MenuItem
+                onClick={handleClose}
+                className={classes.listItemMenuText}
+              >
+                New Notebook
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                className={classes.listItemMenuText}
+              >
+                Rename
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                className={classes.listItemMenuText}
+              >
+                Add Shortcut
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                className={classes.listItemMenuText}
+              >
+                Trash
+              </MenuItem>
+            </Menu>
           </ListItem>
         );
       })}
