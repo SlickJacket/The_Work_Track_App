@@ -16,6 +16,7 @@ import StarIcon from "@material-ui/icons/Star";
 
 import NewProjectModal from "./NewProjectModal";
 import ProjectListItems from "./ProjectListItems";
+import AccountEmailDisplay from "./AccountEmailDisplay";
 
 const drawerWidth = 160;
 
@@ -49,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
   icons: {
     color: "#F9F9F9",
+    width: 15,
+    height: 15,
   },
   arrowIcons: {
     color: "#F9F9F9",
@@ -96,6 +99,7 @@ export default function sidePandel() {
       color="secondary"
     >
       <div className={classes.searchNew}>
+        <AccountEmailDisplay />
         <SearchBar />
         <NewProjectModal />
       </div>

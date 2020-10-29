@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
   icons: {
     color: "#F9F9F9",
-    width: 15,
-    height: 15,
+    width: 12,
+    height: 12,
     marginLeft: "10px",
   },
   listItemMenu: {
@@ -85,17 +85,19 @@ export default function ProjectListItems() {
     <List component="div" disablePadding className={classes.projectList}>
       {projects.map((p) => {
         return (
-          <ListItem
-            button
-            className={classes.nested}
-            onContextMenu={handleClick}
-          >
-            <FolderOpenIcon fontSize="small" className={classes.icons} />
-            <ListItemText
-              key={p.title}
-              primary={p.title}
-              classes={{ primary: classes.listText }}
-            />
+          <Fragment>
+            <ListItem
+              button
+              className={classes.nested}
+              onContextMenu={handleClick}
+            >
+              <FolderOpenIcon fontSize="small" className={classes.icons} />
+              <ListItemText
+                key={p.title}
+                primary={p.title}
+                classes={{ primary: classes.listText }}
+              />
+            </ListItem>
             <Menu
               id="fade-menu"
               anchorEl={anchorEl}
@@ -115,13 +117,19 @@ export default function ProjectListItems() {
                 onClick={handleClose}
                 className={classes.listItemMenuText}
               >
+                New Workbook
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                className={classes.listItemMenuText}
+              >
                 Rename
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 className={classes.listItemMenuText}
               >
-                Add Shortcut
+                Add to Shortcuts
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
@@ -130,7 +138,7 @@ export default function ProjectListItems() {
                 Trash
               </MenuItem>
             </Menu>
-          </ListItem>
+          </Fragment>
         );
       })}
     </List>

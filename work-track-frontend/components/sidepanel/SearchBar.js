@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
   searchIcon: {
     marginLeft: "1px",
     color: "rgba(192, 192, 192, 1)",
+    width: 15,
+    height: 15,
   },
   inputField: {
     backgroundColor: "transparent",
