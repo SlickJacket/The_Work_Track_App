@@ -47,16 +47,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
   },
   listItemMenu: {
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
     "& div": {
       boxShadow: "none",
-      marginLeft: "50px",
-      backgroundColor: "rgba(232, 232, 232, 0.4)",
-      borderRadius: "2px",
+      marginLeft: "140px",
+      backgroundColor: theme.palette.secondary.main,
+      borderRadius: "0px",
     },
   },
   listItemMenuText: {
     fontSize: "8px",
-    color: theme.palette.secondary.main,
+    color: "#F9F9F9",
   },
 }));
 
