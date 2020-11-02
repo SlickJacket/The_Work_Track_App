@@ -4,6 +4,6 @@ class ChangePhoneNumberToBeStringInUsers < ActiveRecord::Migration[6.0]
   end
 
   def down
-    change_column :users, :phone_number, :integer
+    change_column :users, :phone_number, :string
   end
 end

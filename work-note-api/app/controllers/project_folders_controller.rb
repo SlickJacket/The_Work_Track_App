@@ -46,6 +46,6 @@ class ProjectFoldersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_folder_params
-      params.fetch(:project_folder, {})
+      params.permit(:title, :user_id, :starred, :trash)
     end
 end
