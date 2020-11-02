@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "20px",
+    paddingBottom: "20px",
+    paddingTop: "10px",
   },
   icons: {
     color: "#F9F9F9",
