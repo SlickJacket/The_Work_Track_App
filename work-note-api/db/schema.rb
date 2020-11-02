@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_11_053822) do
+ActiveRecord::Schema.define(version: 2020_11_02_185811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,21 @@ ActiveRecord::Schema.define(version: 2020_10_11_053822) do
     t.string "description"
     t.string "priority"
     t.string "bug_status"
-    t.bigint "bug_book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "starred"
     t.boolean "trash"
-    t.index ["bug_book_id"], name: "index_bugs_on_bug_book_id"
+    t.bigint "card_id"
+    t.index ["card_id"], name: "index_bugs_on_card_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "title"
+    t.integer "position"
+    t.bigint "bug_book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bug_book_id"], name: "index_cards_on_bug_book_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -91,7 +100,8 @@ ActiveRecord::Schema.define(version: 2020_10_11_053822) do
   end
 
   add_foreign_key "bug_books", "project_folders"
-  add_foreign_key "bugs", "bug_books"
+  add_foreign_key "bugs", "cards"
+  add_foreign_key "cards", "bug_books"
   add_foreign_key "note_books", "project_folders"
   add_foreign_key "notes", "note_books"
   add_foreign_key "project_folders", "users"
