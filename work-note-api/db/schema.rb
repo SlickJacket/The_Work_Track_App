@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_185811) do
+ActiveRecord::Schema.define(version: 2020_11_03_191302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2020_11_02_185811) do
     t.boolean "starred"
     t.boolean "trash"
     t.index ["project_folder_id"], name: "index_bug_books_on_project_folder_id"
+  end
+
+  create_table "bug_comments", force: :cascade do |t|
+    t.string "description"
+    t.bigint "bug_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bug_id"], name: "index_bug_comments_on_bug_id"
   end
 
   create_table "bugs", force: :cascade do |t|
@@ -100,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_185811) do
   end
 
   add_foreign_key "bug_books", "project_folders"
+  add_foreign_key "bug_comments", "bugs"
   add_foreign_key "bugs", "cards"
   add_foreign_key "cards", "bug_books"
   add_foreign_key "note_books", "project_folders"
