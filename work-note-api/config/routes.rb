@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bug_comments
   resources :cards
   resources :users
   resources :project_folders
